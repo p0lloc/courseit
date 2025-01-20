@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.primary-bg {
+    background-color: #09CDDA;
+}
+
+.button-blue {
+    @apply bg-blue-800 text-white hover:bg-blue-900 px-3 py-2 rounded-md;
+}
