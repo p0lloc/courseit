@@ -28,19 +28,23 @@ export function getCreditErrors(creditsLeft: Record<CreditType, number>): string
         if (pointsLeft <= 0)
             continue;
 
-        errors.push(`⚠ Du saknar ${CREDIT_NAMES[creditType as CreditType]} på ${pointsLeft}HP!`);
+        errors.push(`Du saknar ${CREDIT_NAMES[creditType as CreditType]} på ${pointsLeft}HP!`);
     }
     return errors;
 }
 
-export function calculateNecessaryProgramPoints(program: Program): Record<CreditType, number> {
-    let totalPoints = calculateTotalProgramPoints(program);
-    for (let [creditType, necessary] of Object.entries(NECESSARY_CREDITS)) {
-        totalPoints[creditType as CreditType]
-            = Math.max(0, necessary - totalPoints[creditType as CreditType]);
+export function calculateNecessaryProgramPoints(programs: Program[]): Record<CreditType, number> {
+    let necessaryPoints = structuredClone(NECESSARY_CREDITS);
+
+    for (let program of programs) {
+        let totalPoints = calculateTotalProgramPoints(program);
+        for (let [creditType, points] of Object.entries(totalPoints)) {
+            necessaryPoints[creditType as CreditType]
+                = Math.max(0, necessaryPoints[creditType as CreditType] - points);
+        }
     }
 
-    return totalPoints;
+    return necessaryPoints;
 }
 
 export function calculateTotalProgramPoints(program: Program): Record<CreditType, number> {
@@ -76,7 +80,7 @@ export function calculateTotalProgramPoints(program: Program): Record<CreditType
 export function getMaxStudents(course: Course): Set<number> {
     let maxStudents: Set<number> = new Set();
     for (let round of course.rounds) {
-        if(round.max <= 0) continue;
+        if (round.max <= 0) continue;
         maxStudents.add(round.max);
     }
 
