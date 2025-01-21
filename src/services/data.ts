@@ -1,5 +1,28 @@
-import type {Course, Program} from "../model/course";
-import type {PeriodDates} from "../model/timetable";
+import type { Course, Program } from "../model/course";
+import type { PeriodDates } from "../model/timetable";
+
+export interface AppData {
+    courses: Course[];
+    timeTableIds: Record<string, string>,
+    programs: Program[];
+    periodDates: PeriodDates[]
+}
+
+export async function loadAppData(): Promise<AppData> {
+    let courses = await loadCourseInfo();
+    let timeTableIds = await loadTimeTableIds();
+    let programs = await loadPrograms();
+    let periodDates = await loadPeriodDates();
+
+    programs.forEach(p => setupProgram(p, courses));
+
+    return {
+        courses,
+        timeTableIds,
+        programs,
+        periodDates,
+    }
+}
 
 async function loadCourseInfo(): Promise<Course[]> {
     let programs = await fetch("/courses.json");
@@ -16,8 +39,12 @@ async function loadPrograms(): Promise<Program[]> {
     return await programs.json();
 }
 
+async function loadPeriodDates(): Promise<PeriodDates[]> {
+    let programs = await fetch("/periods.json");
+    return await programs.json();
+}
 
-export function setupProgram(program: Program, courseInfo: Course[]) {
+function setupProgram(program: Program, courseInfo: Course[]) {
     for (let year of program.years) {
         for (let period of year.periods) {
             let result = [];
@@ -36,8 +63,7 @@ export function setupProgram(program: Program, courseInfo: Course[]) {
                 if (course.compulsory)
                     selectedCourses.push(course);
 
-                if(course.moments.some(v => v.rule == "X") && course.name == "Masterexamensarbete vid Data- och informationsteknik"){
-
+                if (!program.master && course.moments.some(v => v.rule == "X")) {
                     selectedCourses.push(course);
                 }
             }
@@ -49,7 +75,3 @@ export function setupProgram(program: Program, courseInfo: Course[]) {
     }
 }
 
-async function loadPeriodDates(): Promise<PeriodDates[]> {
-    let programs = await fetch("/periods.json");
-    return await programs.json();
-}

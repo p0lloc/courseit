@@ -1,6 +1,7 @@
 
 export interface Course {
     id: string;
+    name: string;
     mainSubjects: string[];
     rounds: CourseRound[];
     credit: number;
@@ -22,6 +23,7 @@ export interface Program {
     id: string;
     name: string;
     years: ProgramYear[];
+    master: boolean;
 }
 
 export interface ProgramYear {

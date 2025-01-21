@@ -3,14 +3,15 @@
     import MainView from "./views/MainView.svelte";
 
     let disclaimerDismissed = $state(true);
+    let { appData }: { appData: AppData } = $props();
 
-    function dismissDisclaimer(){
+    function dismissDisclaimer() {
         disclaimerDismissed = true;
     }
 </script>
 
 {#if disclaimerDismissed}
-    <MainView />
+    <MainView {appData} />
 {:else}
-    <DisclaimerView onDismiss={dismissDisclaimer}/>
+    <DisclaimerView onDismiss={dismissDisclaimer} />
 {/if}
