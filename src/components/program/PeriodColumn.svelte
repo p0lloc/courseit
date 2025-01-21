@@ -41,7 +41,7 @@
         <b>{period.id}</b>
         <button
             onclick={onTimeTable}
-            class="flex gap-1 items-center text-gray-400"
+            class="flex gap-1 items-center text-blue-800"
             >Schema
             <Fa icon={faArrowUpRightFromSquare} />
         </button>

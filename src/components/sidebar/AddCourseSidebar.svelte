@@ -6,6 +6,9 @@
 	} from "../../model/sidebar";
 	import CourseInfo from "./CourseInfo.svelte";
 	import CourseList from "./CourseList.svelte";
+	// noinspection ES6UnusedImports
+	import Fa from "svelte-fa";
+	import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 	let { action }: { action: SidebarAction } = $props();
 	let value = $derived<AddCourseAction>(action.value as AddCourseAction);
 
@@ -25,11 +28,19 @@
 
 		value.onCourseSelected(selectedCourse);
 	}
+
+	function back(){
+		selectedCourse = null;
+	}
 </script>
 
 {#if selectedCourse == null}
+	<h2 class="text-2xl mb-2">Välj kurs</h2>
 	<CourseList courses={selectableCourses} onClick={onCourseSelected} />
 {:else}
+	<button onclick={back}>
+		<Fa icon={faArrowLeft} />
+	</button>
 	<CourseInfo course={selectedCourse.info} />
 
 	<button

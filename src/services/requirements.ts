@@ -72,3 +72,13 @@ export function calculateTotalProgramPoints(program: Program): Record<CreditType
         [CreditType.ELECTIVE_IT]: electiveItCredits
     }
 }
+
+export function getMaxStudents(course: Course): Set<number> {
+    let maxStudents: Set<number> = new Set();
+    for (let round of course.rounds) {
+        if(round.max <= 0) continue;
+        maxStudents.add(round.max);
+    }
+
+    return maxStudents;
+}

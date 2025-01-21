@@ -9,3 +9,7 @@
 .button-blue {
     @apply bg-blue-800 text-white hover:bg-blue-900 px-3 py-2 rounded-md;
 }
+
+a {
+    @apply text-blue-800;
+}

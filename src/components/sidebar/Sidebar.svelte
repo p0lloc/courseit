@@ -33,7 +33,7 @@
     <div
         class="fixed right-0 top-0 h-screen w-full md:w-96 border-l bg-white p-4 overflow-y-scroll"
     >
-        <div class="flex justify-end mb-2">
+        <div class="flex justify-end mb-2 absolute right-4">
             <button class="text-2xl" onclick={close}>
                 <Fa icon={faTimes} />
             </button>
