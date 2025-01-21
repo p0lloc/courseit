@@ -5,16 +5,21 @@
         ProgramYear,
     } from "../../model/course";
     import PeriodColumn from "./PeriodColumn.svelte";
+    import type {PeriodDates} from "../../model/timetable";
 
     let {
         year,
         onAddCourse,
         onExistingCourse,
+        periodDates,
+        timeTableIds
     }: {
         year: ProgramYear;
 
         onAddCourse: (period: ProgramPeriod) => void;
         onExistingCourse: (period: ProgramPeriod, c: ProgramCourse) => void;
+        timeTableIds: Record<string, string>;
+        periodDates: PeriodDates[];
     } = $props();
 </script>
 
@@ -24,6 +29,8 @@
         {#each year.periods as period}
             <PeriodColumn
                 {period}
+                {periodDates}
+                {timeTableIds}
                 onAddCourse={() => onAddCourse(period)}
                 onExistingCourse={(c) => onExistingCourse(period, c)}
             />

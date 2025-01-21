@@ -45,6 +45,7 @@ export interface ProgramCourse {
     moments: CourseMoment[];
     nature: boolean;
     compulsory: boolean;
+    thesis: boolean;
     cancelled: boolean;
     info: Course;
 }

@@ -28,6 +28,7 @@
         if (dates == null) return;
 
         let courseIds = period.selectedCourses.map((v) => timeTableIds[v.id]);
+        console.log(courseIds)
         window.open(
             generateTimetableUrl(courseIds, dates.from, dates.to),
             "_blank",
