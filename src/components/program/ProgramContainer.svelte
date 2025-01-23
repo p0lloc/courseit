@@ -39,6 +39,6 @@
 </h2>
 <div class="flex flex-col gap-4 mt-4">
     {#each program.years as year}
-        <Year {timeTableIds} {periodDates} {year} {onAddCourse} {onExistingCourse}/>
+        <Year master={program.master} {timeTableIds} {periodDates} {year} {onAddCourse} {onExistingCourse}/>
     {/each}
 </div>
