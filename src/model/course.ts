@@ -1,3 +1,4 @@
+import type {MasterProgram} from "./master";
 
 export interface Course {
     id: string;
@@ -23,7 +24,7 @@ export interface Program {
     id: string;
     name: string;
     years: ProgramYear[];
-    master: boolean;
+    master: MasterProgram | null;
 }
 
 export interface ProgramYear {

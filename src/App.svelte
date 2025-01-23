@@ -1,6 +1,7 @@
 <script lang="ts">
     import DisclaimerView from "./views/DisclaimerView.svelte";
     import MainView from "./views/MainView.svelte";
+    import type {AppData} from "./services/data";
 
     let disclaimerDismissed = $state(true);
     let { appData }: { appData: AppData } = $props();

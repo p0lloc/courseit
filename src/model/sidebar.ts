@@ -1,4 +1,5 @@
 import type {Program, ProgramCourse, ProgramPeriod } from "./course";
+import type {MasterProgram} from "./master";
 
 export enum SidebarActionType {
 	ADD_COURSE,
@@ -25,6 +26,7 @@ export interface ExistingCourseAction {
 
 export interface SelectMasterAction {
 	programs: Program[];
+	info: MasterProgram[];
 	onProgramSelected: (program: Program) => void;
 }
 

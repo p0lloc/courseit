@@ -2,8 +2,8 @@
 	import {
 		type SidebarAction,
 		type ExistingCourseAction,
-	} from "../../model/sidebar";
-	import CourseInfo from "./CourseInfo.svelte";
+	} from "../../../model/sidebar";
+	import CourseInfo from "../CourseInfo.svelte";
 	let { action }: { action: SidebarAction } = $props();
 	let value = $derived<ExistingCourseAction>(
 		action.value as ExistingCourseAction,

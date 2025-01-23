@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { ProgramCourse } from "../../model/course";
+	import type { ProgramCourse } from "../../../model/course";
 	import {
 		type SidebarAction,
 		type AddCourseAction,
-	} from "../../model/sidebar";
-	import CourseInfo from "./CourseInfo.svelte";
+	} from "../../../model/sidebar";
+	import CourseInfo from "../CourseInfo.svelte";
 	import CourseList from "./CourseList.svelte";
 	// noinspection ES6UnusedImports
 	import Fa from "svelte-fa";

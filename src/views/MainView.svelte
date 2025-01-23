@@ -11,6 +11,7 @@
     import {SidebarActionType} from "../model/sidebar";
     import type {AppData} from "../services/data";
     import {calculateNecessaryProgramPoints, getCreditErrors} from "../services/requirements";
+    // noinspection ES6UnusedImports
     import Fa from "svelte-fa";
     import {faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
 
@@ -56,7 +57,8 @@
         sidebar?.open({
             type: SidebarActionType.SELECT_MASTER,
             value: {
-                programs: appData.programs.filter(p => p.master),
+                programs: appData.programs.filter(p => p.master != null),
+                info: appData.masterPrograms,
                 onProgramSelected: (program: Program) => {
                     master = structuredClone($state.snapshot(program));
                     sidebar?.close();

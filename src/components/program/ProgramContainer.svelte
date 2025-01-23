@@ -31,7 +31,7 @@
 </script>
 
 <h2 class="text-4xl">{program.name}
-    {#if program.master}
+    {#if program.master != null}
         <button class="ml-2 text-2xl" onclick={() => onSwitch?.()}>
             <Fa icon={faPenToSquare}/>
         </button>
@@ -39,6 +39,6 @@
 </h2>
 <div class="flex flex-col gap-4 mt-4">
     {#each program.years as year}
-        <Year master={program.master} {timeTableIds} {periodDates} {year} {onAddCourse} {onExistingCourse}/>
+        <Year master={program.master != null} {timeTableIds} {periodDates} {year} {onAddCourse} {onExistingCourse}/>
     {/each}
 </div>

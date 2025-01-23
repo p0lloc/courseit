@@ -4,10 +4,10 @@
     import { faTimes } from "@fortawesome/free-solid-svg-icons";
     import { SidebarActionType, type SidebarAction } from "../../model/sidebar";
     import type { Component } from "svelte";
-    import AddCourseSidebar from "./AddCourseSidebar.svelte";
-    import ExistingCourseSidebar from "./ExistingCourseSidebar.svelte";
+    import AddCourseSidebar from "./addCourse/AddCourseSidebar.svelte";
+    import ExistingCourseSidebar from "./existingCourse/ExistingCourseSidebar.svelte";
     import SelectMasterButton from "../SelectMasterButton.svelte";
-    import SelectMasterSidebar from "./SelectMasterSidebar.svelte";
+    import SelectMasterSidebar from "./master/SelectMasterSidebar.svelte";
 
     let action = $state<SidebarAction | null>(null);
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ProgramCourse } from "../../model/course";
+	import type { ProgramCourse } from "../../../model/course";
 	import CourseListButton from "./CourseListButton.svelte";
 
 	let {

@@ -1,11 +1,13 @@
 import type { Course, Program } from "../model/course";
 import type { PeriodDates } from "../model/timetable";
+import type {MasterProgram} from "../model/master";
 
 export interface AppData {
     courses: Course[];
     timeTableIds: Record<string, string>,
     programs: Program[];
-    periodDates: PeriodDates[]
+    periodDates: PeriodDates[],
+    masterPrograms: MasterProgram[]
 }
 
 export async function loadAppData(): Promise<AppData> {
@@ -13,19 +15,27 @@ export async function loadAppData(): Promise<AppData> {
     let timeTableIds = await loadTimeTableIds();
     let programs = await loadPrograms();
     let periodDates = await loadPeriodDates();
+    let masterPrograms = await loadMasterPrograms();
 
-    programs.forEach(p => setupProgram(p, courses));
+    programs.forEach(p => setupProgram(p, courses, masterPrograms));
 
     return {
         courses,
         timeTableIds,
         programs,
         periodDates,
+        masterPrograms,
     }
 }
 
 async function loadCourseInfo(): Promise<Course[]> {
     let programs = await fetch("/courses.json");
+    return await programs.json();
+}
+
+
+async function loadMasterPrograms(): Promise<MasterProgram[]> {
+    let programs = await fetch("/master.json");
     return await programs.json();
 }
 
@@ -44,7 +54,9 @@ async function loadPeriodDates(): Promise<PeriodDates[]> {
     return await programs.json();
 }
 
-function setupProgram(program: Program, courseInfo: Course[]) {
+function setupProgram(program: Program, courseInfo: Course[], masterInfo: MasterProgram[]) {
+    program.master = masterInfo.find(m => m.id == program.id) ?? null;
+
     for (let year of program.years) {
         for (let period of year.periods) {
             let result = [];
@@ -63,7 +75,7 @@ function setupProgram(program: Program, courseInfo: Course[]) {
                 if (course.compulsory)
                     selectedCourses.push(course);
 
-                if (!program.master && course.moments.some(v => v.rule == "X")) {
+                if (program.master == null && course.moments.some(v => v.rule == "X")) {
                     selectedCourses.push(course);
                 }
             }

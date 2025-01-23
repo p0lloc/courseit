@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type {ProgramCourse} from "../../model/course";
-    import {isITCourse} from "../../services/requirements";
+    import type {ProgramCourse} from "../../../model/course";
+    import {isITCourse} from "../../../services/requirements";
 
     let {
         course,
