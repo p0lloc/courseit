@@ -15,6 +15,7 @@
     import Fa from "svelte-fa";
     import {faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
     import {calculateTimeTableConflicts} from "../services/timetable";
+    import {findExamConflicts} from "../services/exam";
 
     let sidebar = $state<Sidebar | undefined>();
 
@@ -68,7 +69,8 @@
             timeTableIds.push(appData.timeTableIds[course.id]);
         }
 
-        period.conflicts = await calculateTimeTableConflicts(timeTableIds, courseCodes, dates.from, dates.to);
+        period.examConflicts = findExamConflicts(period.selectedCourses.map(c => c.info));
+        period.timeTableConflicts = await calculateTimeTableConflicts(timeTableIds, courseCodes, dates.from, dates.to);
     }
 
     function selectMaster() {

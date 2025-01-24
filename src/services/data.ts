@@ -1,5 +1,5 @@
-import type { Course, Program } from "../model/course";
-import type { PeriodDates } from "../model/timetable";
+import type {Course, Program} from "../model/course";
+import type {PeriodDates} from "../model/timetable";
 import type {MasterProgram} from "../model/master";
 
 export interface AppData {
@@ -82,7 +82,8 @@ function setupProgram(program: Program, courseInfo: Course[], masterInfo: Master
 
             period.courses = result;
             period.selectedCourses = selectedCourses;
-            period.conflicts = [];
+            period.timeTableConflicts = [];
+            period.examConflicts = [];
         }
     }
 }

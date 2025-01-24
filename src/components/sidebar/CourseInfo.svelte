@@ -11,7 +11,7 @@
     let maxStudents = $derived(getMaxStudents(course));
 </script>
 
-<a target="_blank" href={coursePlanUrl(course.id)} class="text-2xl block mb-2 max-w-[93%]">{course.name} ({course.credit} HP)</a>
+<a target="_blank" href={coursePlanUrl(course.id)} class="text-2xl block mb-2 max-w-[93%]">{course.name} ({course.id})</a>
 <div class="flex items-center gap-2">
     <a target="_blank" class="flex items-center gap-2" href={syllabusUrl(course)}>
         Kurshemsida
@@ -25,6 +25,7 @@
     </a>
 </div>
 
+<p>Poäng: {course.credit} HP</p>
 {#each maxStudents as count}
     <p>Max antal studenter: {count}</p>
 {/each}

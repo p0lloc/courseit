@@ -10,7 +10,7 @@
 </script>
 
 <button class="border w-full p-2 text-xs hover:bg-gray-100" onclick={onClick}>
-    <p class="font-bold">{course.name}</p>
+    <p class="font-bold">{course.name} ({course.id})</p>
     <div>
         {course.info.credit} HP
         {#if course.nature}

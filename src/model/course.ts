@@ -10,9 +10,14 @@ export interface Course {
     purpose: string;
     litterature: string;
     prerequisites: string;
+    exams: Exam[];
     specificRequirements: string;
 }
 
+export interface Exam {
+    timestamp: number;
+    morning: boolean;
+}
 
 export interface CourseRound {
     url: string;
@@ -32,11 +37,18 @@ export interface ProgramYear {
     periods: ProgramPeriod[];
 }
 
+export interface ExamConflict {
+    firstCourse: string;
+    secondCourse: string;
+    date: Date;
+}
+
 export interface ProgramPeriod {
     id: string;
     courses: ProgramCourse[];
     selectedCourses: ProgramCourse[];
-    conflicts: Date[];
+    timeTableConflicts: Date[];
+    examConflicts: ExamConflict[];
 }
 
 export interface ProgramCourse {

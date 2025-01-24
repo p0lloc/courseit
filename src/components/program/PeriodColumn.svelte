@@ -6,7 +6,8 @@
     import type {ProgramCourse, ProgramPeriod} from "../../model/course";
     import type {PeriodDates} from "../../model/timetable";
     import {generateTimetableUrl} from "../../services/timetable-link";
-    import PeriodConflicts from "./PeriodConflicts.svelte";
+    import TimeTableConflicts from "./TimeTableConflicts.svelte";
+    import ExamConflicts from "./ExamConflicts.svelte";
 
     const MIN_COURSES = 2;
 
@@ -57,5 +58,6 @@
             <CourseCell onClick={() => onAddCourse()}>+</CourseCell>
         {/if}
     {/each}
-    <PeriodConflicts conflicts={period.conflicts} />
+    <TimeTableConflicts conflicts={period.timeTableConflicts} />
+    <ExamConflicts conflicts={period.examConflicts} />
 </div>
