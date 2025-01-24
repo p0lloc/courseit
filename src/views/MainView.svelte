@@ -14,6 +14,7 @@
     // noinspection ES6UnusedImports
     import Fa from "svelte-fa";
     import {faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
+    import {calculateTimeTableConflicts} from "../services/timetable";
 
     let sidebar = $state<Sidebar | undefined>();
 
@@ -31,6 +32,7 @@
                 period,
                 onCourseSelected: (c) => {
                     period.selectedCourses.push(c);
+                    onPeriodUpdated(period);
                     sidebar?.close();
                 },
             },
@@ -47,10 +49,26 @@
                     period.selectedCourses = period.selectedCourses.filter(
                         (c) => c.id != course.id,
                     );
+
+                    onPeriodUpdated(period);
                     sidebar?.close();
                 },
             },
         });
+    }
+
+    async function onPeriodUpdated(period: ProgramPeriod){
+        let dates = appData.periodDates.find(p => p.id == period!.id);
+        if (dates == null) return;
+
+        let courseCodes = [];
+        let timeTableIds = [];
+        for (let course of period.selectedCourses) {
+            courseCodes.push(course.id);
+            timeTableIds.push(appData.timeTableIds[course.id]);
+        }
+
+        period.conflicts = await calculateTimeTableConflicts(timeTableIds, courseCodes, dates.from, dates.to);
     }
 
     function selectMaster() {

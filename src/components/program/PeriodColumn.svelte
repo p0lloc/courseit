@@ -1,11 +1,12 @@
 <script lang="ts">
     import CourseCell from "./CourseCell.svelte";
-    import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+    import {faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons";
     // noinspection ES6UnusedImports
     import Fa from "svelte-fa";
-    import type { ProgramCourse, ProgramPeriod } from "../../model/course";
-    import type { PeriodDates } from "../../model/timetable";
-    import { generateTimetableUrl } from "../../services/timetable-link";
+    import type {ProgramCourse, ProgramPeriod} from "../../model/course";
+    import type {PeriodDates} from "../../model/timetable";
+    import {generateTimetableUrl} from "../../services/timetable-link";
+    import PeriodConflicts from "./PeriodConflicts.svelte";
 
     const MIN_COURSES = 2;
 
@@ -28,7 +29,6 @@
         if (dates == null) return;
 
         let courseIds = period.selectedCourses.map((v) => timeTableIds[v.id]);
-        console.log(courseIds)
         window.open(
             generateTimetableUrl(courseIds, dates.from, dates.to),
             "_blank",
@@ -40,16 +40,16 @@
     <div class="flex justify-between px-4 border">
         <b>{period.id}</b>
         <button
-            onclick={onTimeTable}
-            class="flex gap-1 items-center text-blue-800"
-            >Schema
-            <Fa icon={faArrowUpRightFromSquare} />
+                onclick={onTimeTable}
+                class="flex gap-1 items-center text-blue-800"
+        >Schema
+            <Fa icon={faArrowUpRightFromSquare}/>
         </button>
     </div>
     {#each Array(Math.max(MIN_COURSES, period.selectedCourses.length)) as _, i}
         {#if i < period.selectedCourses.length}
             <CourseCell
-                onClick={() => onExistingCourse(period.selectedCourses[i])}
+                    onClick={() => onExistingCourse(period.selectedCourses[i])}
             >
                 {period.selectedCourses[i].name}
             </CourseCell>
@@ -57,4 +57,5 @@
             <CourseCell onClick={() => onAddCourse()}>+</CourseCell>
         {/if}
     {/each}
+    <PeriodConflicts conflicts={period.conflicts} />
 </div>
