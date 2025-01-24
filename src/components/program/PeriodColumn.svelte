@@ -1,6 +1,6 @@
 <script lang="ts">
     import CourseCell from "./CourseCell.svelte";
-    import {faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons";
+    import {faArrowUpRightFromSquare, faPlus} from "@fortawesome/free-solid-svg-icons";
     // noinspection ES6UnusedImports
     import Fa from "svelte-fa";
     import type {ProgramCourse, ProgramPeriod} from "../../model/course";
@@ -17,12 +17,16 @@
         onExistingCourse,
         periodDates,
         timeTableIds,
+
+        extendedCourses
     }: {
         period: ProgramPeriod;
         onAddCourse: () => void;
         onExistingCourse: (c: ProgramCourse) => void;
         timeTableIds: Record<string, string>;
         periodDates: PeriodDates[];
+
+        extendedCourses: boolean
     } = $props();
 
     function onTimeTable() {
@@ -58,6 +62,11 @@
             <CourseCell onClick={() => onAddCourse()}>+</CourseCell>
         {/if}
     {/each}
-    <TimeTableConflicts conflicts={period.timeTableConflicts} />
-    <ExamConflicts conflicts={period.examConflicts} />
+    {#if extendedCourses }
+        <button class="flex justify-center w-full border py-1" onclick={() => onAddCourse()}>
+            <Fa icon={faPlus} />
+        </button>
+    {/if}
+    <TimeTableConflicts conflicts={period.timeTableConflicts}/>
+    <ExamConflicts conflicts={period.examConflicts}/>
 </div>

@@ -18,6 +18,7 @@
     import {findExamConflicts} from "../services/exam";
 
     let sidebar = $state<Sidebar | undefined>();
+    let extendedCourses = $state(false);
 
     let {appData}: { appData: AppData } = $props();
 
@@ -58,7 +59,7 @@
         });
     }
 
-    async function onPeriodUpdated(period: ProgramPeriod){
+    async function onPeriodUpdated(period: ProgramPeriod) {
         let dates = appData.periodDates.find(p => p.id == period!.id);
         if (dates == null) return;
 
@@ -91,16 +92,19 @@
 <div class="md:w-1/2 mx-auto py-10 px-4 md:px-0">
     <div class="flex justify-center md:justify-end mb-4">
         <PersistenceOptions/>
+        <div class="border-r mx-4"></div>
+        <div class="flex items-center gap-2"><input type="checkbox" bind:checked={extendedCourses}/> Utökade kurser</div>
     </div>
 
-    <ProgramContainer timeTableIds={appData.timeTableIds} periodDates={appData.periodDates}
+    <ProgramContainer {extendedCourses} timeTableIds={appData.timeTableIds} periodDates={appData.periodDates}
                       {onAddCourse} {onExistingCourse} {program}/>
 
     <div class="mt-8">
         {#if master == null}
             <SelectMasterButton onClick={selectMaster}/>
         {:else}
-            <ProgramContainer onSwitch={selectMaster} timeTableIds={appData.timeTableIds} periodDates={appData.periodDates}
+            <ProgramContainer {extendedCourses} onSwitch={selectMaster} timeTableIds={appData.timeTableIds}
+                              periodDates={appData.periodDates}
                               {onAddCourse} {onExistingCourse} program={master}/>
         {/if}
     </div>

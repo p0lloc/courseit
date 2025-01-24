@@ -16,7 +16,9 @@
         onAddCourse,
         onExistingCourse,
         periodDates,
-        timeTableIds
+        timeTableIds,
+
+        extendedCourses
     }: {
         year: ProgramYear;
         master: boolean;
@@ -25,6 +27,8 @@
         onExistingCourse: (period: ProgramPeriod, c: ProgramCourse) => void;
         timeTableIds: Record<string, string>;
         periodDates: PeriodDates[];
+
+        extendedCourses: boolean;
     } = $props();
 
     function onMasterThesisSelected(c: ProgramCourse){
@@ -52,6 +56,7 @@
                         {timeTableIds}
                         onAddCourse={() => onAddCourse(period)}
                         onExistingCourse={(c) => onExistingCourse(period, c)}
+                        {extendedCourses}
                 />
             {/each}
         </div>
