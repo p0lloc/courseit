@@ -90,14 +90,14 @@
 </script>
 
 <div class="md:w-1/2 mx-auto py-10 px-4 md:px-0">
-    <div class="flex justify-center md:justify-end mb-4">
+    <div class="flex justify-center md:justify-end mb-4 flex-wrap gap-2">
         <PersistenceOptions/>
-        <div class="border-r mx-4"></div>
+        <div class="border-r mx-4 md:block hidden"></div>
         <div class="flex items-center gap-2"><input type="checkbox" bind:checked={extendedCourses}/> Utökade kurser</div>
     </div>
 
     <ProgramContainer {extendedCourses} timeTableIds={appData.timeTableIds} periodDates={appData.periodDates}
-                      {onAddCourse} {onExistingCourse} {program}/>
+                      {onAddCourse} {onExistingCourse} {program} showProgramName={false}/>
 
     <div class="mt-8">
         {#if master == null}

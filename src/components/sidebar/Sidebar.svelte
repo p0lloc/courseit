@@ -34,7 +34,7 @@
 
 {#if action != null}
     <div
-        class="fixed right-0 top-0 h-screen w-full md:w-96 border-l bg-white p-4 overflow-y-scroll"
+        class="fixed right-0 left-0 md:left-auto top-0 h-screen w-screen md:w-96 border-l bg-white p-4 overflow-y-scroll"
     >
         <div class="flex justify-end mb-2 absolute right-4">
             <button class="text-2xl" onclick={close}>

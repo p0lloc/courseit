@@ -18,6 +18,7 @@
         timeTableIds,
         periodDates,
         onSwitch,
+        showProgramName = true,
 
         extendedCourses
     }: {
@@ -29,20 +30,22 @@
         timeTableIds: Record<string, string>;
         periodDates: PeriodDates[];
         onSwitch?: () => void,
+        showProgramName?: boolean;
 
         extendedCourses: boolean;
     } = $props();
 </script>
 
-<h2 class="text-4xl">{program.name}
-    {#if program.master != null}
+{#if showProgramName}
+    <h2 class="text-4xl">{program.name}
         <button class="ml-2 text-2xl" onclick={() => onSwitch?.()}>
             <Fa icon={faPenToSquare}/>
         </button>
-    {/if}
-</h2>
+    </h2>
+{/if}
 <div class="flex flex-col gap-4 mt-4">
     {#each program.years as year}
-        <Year {extendedCourses} master={program.master != null} {timeTableIds} {periodDates} {year} {onAddCourse} {onExistingCourse}/>
+        <Year {extendedCourses} master={program.master != null} {timeTableIds} {periodDates} {year} {onAddCourse}
+              {onExistingCourse}/>
     {/each}
 </div>

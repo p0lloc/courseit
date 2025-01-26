@@ -46,9 +46,9 @@
     >
 {:else}
     <h2 class="text-2xl mb-2">Välj master</h2>
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 flex-wrap">
         {#each value.programs as program}
-            <button class="text-xs p-2 border w-full font-bold"
+            <button class="text-xs p-2 border w-full font-bold text-wrap"
                     onclick={() => showProgram(program)}>{program.master?.name ?? ""}</button>
         {/each}
     </div>
