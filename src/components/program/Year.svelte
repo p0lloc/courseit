@@ -8,8 +8,6 @@
     import type {PeriodDates} from "../../model/timetable";
     import SelectMasterThesis from "./SelectMasterThesis.svelte";
 
-    let selectedMasterThesis = $state(false);
-
     let {
         year,
         master,
@@ -43,6 +41,16 @@
     }
 
     let isLastYearMaster = $derived(master && year.year === 2);
+    let selectedMasterThesis = $derived.by(() => {
+        if(!isLastYearMaster) return false;
+        for (let period of year.periods) {
+            for(let course of period.selectedCourses){
+                if(course.thesis) return true;
+            }
+        }
+
+        return false;
+    });
 </script>
 
 {#if !isLastYearMaster || selectedMasterThesis}

@@ -16,6 +16,7 @@
     import {faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
     import {calculateTimeTableConflicts} from "../services/timetable";
     import {findExamConflicts} from "../services/exam";
+    import {savedProgramPlans} from "../main";
 
     let sidebar = $state<Sidebar | undefined>();
     let extendedCourses = $state(false);
@@ -87,13 +88,23 @@
             }
         });
     }
+
+    function loadPlan(id: string) {
+        let loaded = savedProgramPlans.loadPlanById(id, appData.programs);
+        if (loaded == null) return;
+
+        let [mainProgram, loadedMaster] = loaded;
+        program = mainProgram;
+        master = loadedMaster;
+    }
 </script>
 
 <div class="md:w-1/2 mx-auto py-10 px-4 md:px-0">
     <div class="flex justify-center md:justify-end mb-4 flex-wrap gap-2">
-        <PersistenceOptions/>
+        <PersistenceOptions mainProgram={program} master={master} onLoadPlan={loadPlan}/>
         <div class="border-r mx-4 md:block hidden"></div>
-        <div class="flex items-center gap-2"><input type="checkbox" bind:checked={extendedCourses}/> Utökade kurser</div>
+        <div class="flex items-center gap-2"><input type="checkbox" bind:checked={extendedCourses}/> Utökade kurser
+        </div>
     </div>
 
     <ProgramContainer {extendedCourses} timeTableIds={appData.timeTableIds} periodDates={appData.periodDates}
