@@ -3,7 +3,7 @@
     import MainView from "./views/MainView.svelte";
     import type {AppData} from "./services/data";
 
-    let disclaimerDismissed = $state(true);
+    let disclaimerDismissed = $state(false);
     let { appData }: { appData: AppData } = $props();
 
     function dismissDisclaimer() {

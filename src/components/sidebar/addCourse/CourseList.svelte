@@ -7,10 +7,15 @@
 		onClick,
 	}: { courses: ProgramCourse[]; onClick: (course: ProgramCourse) => void } =
 		$props();
+
+	let searchPhrase = $state("");
+	let result = $derived(courses.filter(c =>
+			c.name.toLowerCase().includes(searchPhrase.toLowerCase())));
 </script>
 
 <div class="flex flex-col gap-2">
-	{#each courses as course (course.id)}
+	<input bind:value={searchPhrase} class="border mb-2 w-full p-2 text-xs" placeholder="Sök..." />
+	{#each result as course (course.id)}
 		<CourseListButton onClick={() => onClick(course)} {course} />
 	{/each}
 </div>
