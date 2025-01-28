@@ -46,10 +46,12 @@
             <option value={plan.id}>{plan.name}</option>
         {/each}
     </select>
-    <button onclick={save}>
+    <button class="flex gap-2 items-center" onclick={save}>
+        Spara
         <Fa icon={faFloppyDisk}/>
     </button>
-    <button onclick={load}>
+    <button class="flex gap-2 items-center" onclick={load}>
+        Ladda
         <Fa icon={faFileImport}/>
     </button>
 </div>

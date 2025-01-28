@@ -8,9 +8,14 @@
 	}: { courses: ProgramCourse[]; onClick: (course: ProgramCourse) => void } =
 		$props();
 
+	function caseInsensitiveMatch(first: string, second: string){
+		return first.toLowerCase().includes(second.toLowerCase());
+	}
+
 	let searchPhrase = $state("");
 	let result = $derived(courses.filter(c =>
-			c.name.toLowerCase().includes(searchPhrase.toLowerCase())));
+		    caseInsensitiveMatch(c.name, searchPhrase)
+			|| caseInsensitiveMatch(c.id, searchPhrase)));
 </script>
 
 <div class="flex flex-col gap-2">
