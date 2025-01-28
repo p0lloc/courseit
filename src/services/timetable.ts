@@ -157,7 +157,7 @@ function parsePeriodDate(dateStr: string): Date {
     let month = dateStr.substring(4, 6);
     let day = dateStr.substring(6);
     date.setFullYear(parseInt(year));
-    date.setMonth(parseInt(month));
+    date.setMonth(parseInt(month)-1);
     date.setDate(parseInt(day));
 
     return date;
